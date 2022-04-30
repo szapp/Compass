@@ -36,17 +36,19 @@ func void Patch_Compass_Init() {
  */
 func void Patch_Compass() {
     // Create sprites once
-    var int back; var int needle;
+    var int back; var int needle; var int init;
     if (!Hlp_IsValidHandle(needle)) {
         PM_BindInt(needle); // Patch-specific to avoid duplicate sprites after re-install
         back   = Sprite_CreatePxl(0, 0, 250, 250, -1, Patch_Compass_Tex_Back);
         needle = Sprite_CreatePxl(0, 0, 250, 250, -1, Patch_Compass_Tex_Needle);
+        Sprite_SetPrio(needle, 1); // Keep needle on top
+        init = FALSE; // Patch-specific to force re-initialization, if lost after loading (paranoid)
     };
 
     // Make robust to changes in screen resolution
     var int x; var int y;
     Print_GetScreenSize();
-    if (Print_Screen[PS_X] != x) || (Print_Screen[PS_Y] != y) {
+    if (Print_Screen[PS_X] != x) || (Print_Screen[PS_Y] != y) || (!init) {
         x = Print_Screen[PS_X] - (Patch_Compass_Size/2 + 15);
         y = Patch_Compass_Size/2 + 15; // Padding of extra 15 px in case there is a status bar
         Sprite_SetPosPxl(back,   x, y);
@@ -56,6 +58,7 @@ func void Patch_Compass() {
         Sprite_SetRotationSC(back, FLOATNULL, FLOATONE); // Bug fix: Angles are lost for after loading
         x = Print_Screen[PS_X];
         y = Print_Screen[PS_Y];
+        init = TRUE;
     };
 
     // Auto show and hide
