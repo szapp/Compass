@@ -8,6 +8,11 @@ func void Ninja_Compass_Menu(var int menuPtr) {
         // Initialize Ikarus
         MEM_InitAll();
 
+        // Version check
+        if (NINJA_VERSION < 2713) {
+            MEM_SendToSpy(zERR_TYPE_FATAL, "Compass requires at least Ninja 2.7.13 or higher.");
+        };
+
         MEM_Info("Compass: Initializing entries in Gothic.ini.");
         if (!MEM_GothOptExists("COMPASS", "pixelSize")) {
             MEM_SetGothOpt("COMPASS", "pixelSize", IntToString(Patch_Compass_Size));
