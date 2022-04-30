@@ -10,9 +10,9 @@ func void Ninja_Compass_Menu(var int menuPtr) {
 
         MEM_Info("Compass: Initializing entries in Gothic.ini.");
         if (!MEM_GothOptExists("COMPASS", "pixelSize")) {
-            MEM_SetGothOpt("COMPASS", "pixelSize", IntToString(Ninja_Compass_Size));
+            MEM_SetGothOpt("COMPASS", "pixelSize", IntToString(Patch_Compass_Size));
         } else {
-            Ninja_Compass_Size = STR_ToInt(MEM_GetGothOpt("COMPASS", "pixelSize"));
+            Patch_Compass_Size = STR_ToInt(MEM_GetGothOpt("COMPASS", "pixelSize"));
         };
         once = 1;
     };
