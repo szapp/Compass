@@ -30,6 +30,6 @@ func void Ninja_Compass_Init() {
     if (MEM_FindParserSymbol("COMPASS_INIT") == -1) {
         // Wrapper for "LeGo_Init" to ensure correct LeGo initialization without breaking the mod
         LeGo_MergeFlags(LeGo_Sprite | LeGo_FrameFunctions);
-        _Ninja_Compass_Init();
+        Patch_Compass_Init();
     };
 };

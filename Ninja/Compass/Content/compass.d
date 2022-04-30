@@ -12,46 +12,47 @@
  *     Compass_Init();
  *
  *
- * Note: All symbols are prefixed with "Ninja_" to not interfere with the mod. Remove if using somewhere else!
+ * Note: All symbols are prefixed with "Patch_" to not interfere with the mod. Remove if using somewhere else!
  */
 
 /* Constants */
-const string Ninja_Compass_Tex_Back   = "NINJA_COMPASS_BACK.TGA";
-const string Ninja_Compass_Tex_Needle = "NINJA_COMPASS_NEEDLE.TGA";
-const int    Ninja_Compass_Size       = 150;  // Width and height in pixels
-const int    Ninja_Compass_Show       = TRUE; // Switch to hide it from outside functions
+const string Patch_Compass_Tex_Back   = "PATCH_COMPASS_BACK.TGA";
+const string Patch_Compass_Tex_Needle = "PATCH_COMPASS_NEEDLE.TGA";
+const int    Patch_Compass_Size       = 150; // Width and height in pixels
+const int    Patch_Compass_Show       = 1;   // Switch for outside functions to hide it (TRUE/FALSE)
 
 /*
  * Initialization function to be called from Init_Global
  */
-func void _Ninja_Compass_Init() {
+func void Patch_Compass_Init() {
     // Requires LeGo FrameFunctions and Sprite
     if (_LeGo_Flags & (LeGo_Sprite | LeGo_FrameFunctions)) {
-        FF_ApplyOnce(Ninja_Compass);
+        FF_ApplyOnce(Patch_Compass);
     };
 };
 
 /*
  * FrameFunction to create, rotate, adjust and draw the compass on the screen
  */
-func void Ninja_Compass() {
+func void Patch_Compass() {
     // Create sprites once
     var int back; var int needle;
     if (!Hlp_IsValidHandle(needle)) {
-        back   = Sprite_CreatePxl(0, 0, 250, 250, -1, Ninja_Compass_Tex_Back);
-        needle = Sprite_CreatePxl(0, 0, 250, 250, -1, Ninja_Compass_Tex_Needle);
+        PM_BindInt(needle); // Patch-specific to avoid duplicate sprites after re-install
+        back   = Sprite_CreatePxl(0, 0, 250, 250, -1, Patch_Compass_Tex_Back);
+        needle = Sprite_CreatePxl(0, 0, 250, 250, -1, Patch_Compass_Tex_Needle);
     };
 
     // Make robust to changes in screen resolution
     var int x; var int y;
     Print_GetScreenSize();
     if (Print_Screen[PS_X] != x) || (Print_Screen[PS_Y] != y) {
-        x = Print_Screen[PS_X] - (Ninja_Compass_Size/2 + 15);
-        y = Ninja_Compass_Size/2 + 15; // Padding of extra 15 px in case there is a status bar
+        x = Print_Screen[PS_X] - (Patch_Compass_Size/2 + 15);
+        y = Patch_Compass_Size/2 + 15; // Padding of extra 15 px in case there is a status bar
         Sprite_SetPosPxl(back,   x, y);
         Sprite_SetPosPxl(needle, x, y);
-        Sprite_SetDimPxl(back,   Ninja_Compass_Size, Ninja_Compass_Size);
-        Sprite_SetDimPxl(needle, Ninja_Compass_Size, Ninja_Compass_Size);
+        Sprite_SetDimPxl(back,   Patch_Compass_Size, Patch_Compass_Size);
+        Sprite_SetDimPxl(needle, Patch_Compass_Size, Patch_Compass_Size);
         Sprite_SetRotationSC(back, FLOATNULL, FLOATONE); // Bug fix: Angles are lost for after loading
         x = Print_Screen[PS_X];
         y = Print_Screen[PS_Y];
@@ -59,11 +60,11 @@ func void Ninja_Compass() {
 
     // Auto show and hide
     var oCNpc her; her = Hlp_GetNpc(hero);
-    var int on; on = _Bar_PlayerStatus() && (!(her.bitfield[0] & oCNpc_bitfield0_movlock)) && Ninja_Compass_Show;
+    var int on; on = _Bar_PlayerStatus() && (!(her.bitfield[0] & oCNpc_bitfield0_movlock)) && Patch_Compass_Show;
     Sprite_SetVisible(back,   on);
     Sprite_SetVisible(needle, on);
 
     // Update orientation
     var zCVob vob; vob = Hlp_GetNpc(hero);
-    Sprite_SetRotationSC(needle, vob.trafoObjToWorld[2], vob.trafoObjToWorld[10]);
+    Sprite_SetRotationSC(needle, negf(vob.trafoObjToWorld[2]), vob.trafoObjToWorld[10]);
 };

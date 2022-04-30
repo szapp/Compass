@@ -5,8 +5,8 @@ VDFName=.\Compass.vdf
 
 [FILES]
 ; Resources (list the specific files from _work here)
-_work\Data\Textures\_compiled\NINJA_COMPASS_BACK-C.TEX
-_work\Data\Textures\_compiled\NINJA_COMPASS_NEEDLE-C.TEX
+_work\Data\Textures\_compiled\PATCH_COMPASS_BACK-C.TEX
+_work\Data\Textures\_compiled\PATCH_COMPASS_NEEDLE-C.TEX
 
 ; Script files
 Ninja\Compass\* -r
