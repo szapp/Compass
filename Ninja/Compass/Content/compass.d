@@ -28,7 +28,6 @@ func void Patch_Compass_Init() {
     // Requires LeGo FrameFunctions and Sprite
     if (_LeGo_Flags & (LeGo_Sprite | LeGo_FrameFunctions)) {
         FF_ApplyOnce(Patch_Compass);
-        foreachHndlSort(gCSprite@, _Sprite_PrioComparer); // Bug fix for lower LeGo versions
     };
 };
 

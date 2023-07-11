@@ -8,6 +8,11 @@ func void Ninja_Compass_Menu(var int menuPtr) {
         // Initialize Ikarus
         MEM_InitAll();
 
+        // Version check
+        if (NINJA_VERSION < 2813) {
+            MEM_SendToSpy(zERR_TYPE_FATAL, "Compass requires at least Ninja 2.8.13 or higher.");
+        };
+
         MEM_Info("Compass: Initializing entries in Gothic.ini.");
         if (!MEM_GothOptExists("COMPASS", "pixelSize")) {
             MEM_SetGothOpt("COMPASS", "pixelSize", IntToString(Patch_Compass_Size));
@@ -31,5 +36,18 @@ func void Ninja_Compass_Init() {
         // Wrapper for "LeGo_Init" to ensure correct LeGo initialization without breaking the mod
         LeGo_MergeFlags(LeGo_Sprite | LeGo_FrameFunctions);
         Patch_Compass_Init();
+    };
+
+    // Fix mistake from a previous update that caused orphan handles
+    foreachPatchHndl(NINJA_ID_COMPASS, gCSprite@, Patch_Compass_PurgeOrphanSprites);
+};
+
+/*
+ * Remove dangling handles of sprites
+ */
+func void Patch_Compass_PurgeOrphanSprites(var int hndl) {
+    var gCSprite sprite; sprite = get(hndl);
+    if (!STR_StartsWith(sprite.textureName, "PATCH_COMPASS_")) {
+        delete(hndl);
     };
 };
