@@ -5,7 +5,7 @@
  * Add an on-screen compass.
  *
  * - Requires Ikarus, LeGo (FrameFunctions and Sprite)
- * - Compatible with Gothic 1 and Gothic 2
+ * - Compatible with Gothic, Gothic Sequel, Gothic 2, and Gothic 2 NotR
  *
  * Instructions
  * - Initialize from Init_Global with
