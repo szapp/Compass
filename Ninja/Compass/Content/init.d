@@ -9,8 +9,8 @@ func void Ninja_Compass_Menu(var int menuPtr) {
         MEM_InitAll();
 
         // Version check
-        if (NINJA_VERSION < 2813) {
-            MEM_SendToSpy(zERR_TYPE_FATAL, "Compass requires at least Ninja 2.8.13 or higher.");
+        if (NINJA_VERSION < 2800) {
+            MEM_SendToSpy(zERR_TYPE_FATAL, "Compass requires at least Ninja 2.8 or higher.");
         };
 
         MEM_Info("Compass: Initializing entries in Gothic.ini.");
