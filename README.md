@@ -34,7 +34,7 @@ This entry is created automatically after launching the game.
 
 ## Authors
 
-[![Authors](https://raw.githubusercontent.com/szapp/Compass/main/.github/authors.svg)](https://raw.githubusercontent.com/szapp/Compass/main/.github/authors.svg)
+[![Authors](.github/authors.svg)](https://github.com/szapp/Compass/assets/20203034/c9fa18cc-2c4f-40cd-be12-c75c69193386)
 
 ## Installation
 
