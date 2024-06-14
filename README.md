@@ -32,6 +32,10 @@ This entry is created automatically after launching the game.
 - The graphics are made by [Feuerbarde](https://forum.worldofplayers.de/forum/members/165148).
 - The implementation is based on the [compass script](https://forum.worldofplayers.de/forum/threads/?p=26483751).
 
+## Authors
+
+[![Authors](https://raw.githubusercontent.com/szapp/Compass/main/.github/authors.svg)](https://raw.githubusercontent.com/szapp/Compass/main/.github/authors.svg)
+
 ## Installation
 
 1. Download the latest release of `Compass.vdf` from the [releases page](https://github.com/szapp/Compass/releases/latest).
